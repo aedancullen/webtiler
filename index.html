@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="theme-color" content="#000000">
+		<title>WebTiler</title>
+		<script>
+		function goFull() {
+			var container = document.getElementById("container");
+			container.webkitRequestFullScreen();           
+		}
+		function stopFull() {
+			document.webkitExitFullscreen();
+		}
+		document.addEventListener("webkitfullscreenchange", function () {
+			var player = document.getElementById("player");
+			var instr = document.getElementById("instr");
+			if (player.style.display == "block") {
+				document.location.reload();
+			}
+			else {
+				player.style.width = screen.width;
+				player.style.height = screen.height;
+				player.style.display = "block";
+				player.src = "/p".concat("?w=", screen.width, "&h=", screen.height, "&r=", new Date().getTime());
+				instr.style.display = "none";
+			}
+		}, false);
+		</script>
+	</head>
+	<body>
+		<style>
+		html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            font-family: "Arial";
+        }
+        #container {
+        	position: absolute;
+        	background-color: black;
+            min-height: 100%;
+            min-width: 100%; 
+        }
+        #player {
+        	min-height: 100%;
+        	min-width: 100%;
+        	display: none;
+        }
+        .text {
+        	text-align: center;
+        }
+        #bigtext {
+        	color: lightgrey;
+        }
+        #msg {
+        	color: lightgreen;
+        }
+        #instr {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			display: block;
+		}
+		button {
+			font-size: 1.75em;
+			background-color: lightgreen;
+			color: black;
+  			border: 3px solid lightgreen;
+  			border-radius: 10px;
+			padding: 15px 45px;
+			text-align: center;
+			text-decoration: none;
+			display: block;
+			font-weight: bold;
+		}
+		</style>
+		<div id="container">
+			<div id="instr">
+				<h3 id="msg" class="text">Brightness up plz!</h3>
+				<h1 id="bigtext" class="text">Put your device on the table, then hit</h1>
+				<center>
+					<button onclick="goFull()">START</button>
+				</center>
+			</div>
+			<img id="player" ondblclick="stopFull()" src="">
+		</div>
+	</body>
+</html>
